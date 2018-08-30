@@ -6,6 +6,7 @@
     <artifactId>spring-cloud</artifactId>
     <version>1.0.0</version>
     <name>spring-cloud</name>
+    <packaging>pom</packaging>
 
     <dependencyManagement>
         <dependencies>
@@ -39,17 +40,22 @@
     </properties>
 
     <dependencies>
-        <!-- 引入log4j2依赖 -->
         <!-- 排除starter 依赖自带的logback 注：在第一个starter 依赖中加上这段，否则无效 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- 引入log4j2依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
 
         <!-- 单元测试 -->
@@ -59,7 +65,7 @@
         </dependency>
 
         <!-- 公用commons包 -->
-       <dependency>
+        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>

@@ -11,3 +11,6 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone: http://localhost:${server.port}/eureka/
+
+logging:
+  config: classpath:log4j2.xml
