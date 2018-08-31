@@ -14,9 +14,9 @@ Configuration:
       - name: logger.pattern
         value: "%d %p %C{10} [%t] %m%n"
       - name: logger.file.path
-        value: ../log/spring-cloud-eureka/
+        value: ../log/spring-cloud-config/
       - name: logger.file.name
-        value: spring-cloud-eureka
+        value: spring-cloud-config
 
 
   Appenders:

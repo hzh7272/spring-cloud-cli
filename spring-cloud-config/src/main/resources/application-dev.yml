@@ -1,0 +1,20 @@
+########################################################################
+####           spring-cloud-config配置服务中心 - 开发环境配置          ####
+########################################################################
+
+spring:
+  cloud:
+   config:
+     server:
+      git:
+        uri: https://gitee.com/hzh7272/spring-cloud-config/dev/
+        username: hzh@hongzh.cc
+        password: asdf123456
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.0.1.3:7001/eureka/,http://10.0.1.6:7001/eureka/
+
+logging:
+  config: classpath:config/log4j2-dev.yml

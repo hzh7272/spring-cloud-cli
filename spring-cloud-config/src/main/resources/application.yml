@@ -1,0 +1,12 @@
+########################################################################
+####                    spring-cloud-config配置服务中心               ####
+########################################################################
+
+server:
+  port: 6001
+
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: config_server

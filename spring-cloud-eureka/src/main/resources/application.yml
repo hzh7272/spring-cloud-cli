@@ -6,11 +6,13 @@ spring:
     name: spring-cloud-eureka
 
 eureka:
+  instance:
+    appname: eureka-server
   client:
-    register-with-eureka: false
+    register-with-eureka: true
     fetch-registry: false
     service-url:
-      defaultZone: http://localhost:${server.port}/eureka/
+      defaultZone: http://10.0.1.6:${server.port}/eureka/
 
 logging:
   config: classpath:log4j2.yml
