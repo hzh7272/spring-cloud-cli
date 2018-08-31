@@ -1,5 +1,5 @@
 server:
-  port: 7101
+  port: 7001
 
 spring:
   application:
@@ -13,4 +13,4 @@ eureka:
       defaultZone: http://localhost:${server.port}/eureka/
 
 logging:
-  config: classpath:log4j2.xml
+  config: classpath:log4j2.yml
