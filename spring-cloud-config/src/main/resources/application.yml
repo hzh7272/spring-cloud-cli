@@ -7,6 +7,10 @@ server:
 
 spring:
   profiles:
-    active: @profileActive@
+    active: dev
   application:
     name: config_server
+
+eureka:
+  instance:
+    appname: config_server

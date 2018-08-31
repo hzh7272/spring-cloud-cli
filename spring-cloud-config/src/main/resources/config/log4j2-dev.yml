@@ -78,7 +78,7 @@ Configuration:
         - ref: ROLLING_ERROR_FILE
     Logger:
       - name: org.springframework
-        level: WARN
+        level: INFO
         additivity: false
         AppenderRef:
           - ref: CONSOLE
