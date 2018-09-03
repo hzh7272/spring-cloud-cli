@@ -12,7 +12,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: false
     service-url:
-      defaultZone: http://10.0.1.6:${server.port}/eureka/
+      defaultZone: http://127.0.0.1:${server.port}/eureka/
 
 logging:
   config: classpath:log4j2.yml

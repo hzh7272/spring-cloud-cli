@@ -8,6 +8,21 @@
     <name>spring-cloud</name>
     <packaging>pom</packaging>
 
+    <developers>
+        <developer>
+            <id>hzh</id>
+            <name>洪植宏</name>
+            <email>hzh@hongzh.vip</email>
+            <roles>
+                <role>项目管理员</role>
+                <role>项目开发人员</role>
+            </roles>
+            <organization>尖括号</organization>
+            <organizationUrl>https://blog.jkhee.com</organizationUrl>
+            <timezone>8</timezone>
+        </developer>
+    </developers>
+
     <dependencyManagement>
         <dependencies>
             <!-- spring io 管理依赖版本 -->
@@ -29,6 +44,13 @@
         </dependencies>
     </dependencyManagement>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.4.RELEASE</version>
+        <relativePath />
+    </parent>
+
     <!-- 项目使用java10进行编写 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,6 +59,9 @@
         <jaxb.api.version>2.3.0</jaxb.api.version>
         <jaxb.impl.version>2.3.0</jaxb.impl.version>
         <jaxb.runtime.version>2.3.0</jaxb.runtime.version>
+        <jasypt.spring.boot.starter.version>1.18</jasypt.spring.boot.starter.version>
+        <mybatis.spring.boot.starter.version>1.3.2</mybatis.spring.boot.starter.version>
+        <druid.version>1.1.10</druid.version>
     </properties>
 
     <dependencies>
@@ -123,6 +148,12 @@
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
+        </dependency>
+
+        <!-- lombok 插件 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

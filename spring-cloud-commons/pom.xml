@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>spring-cloud-commons</artifactId>
+    <name>spring-cloud-commons</name>
+    <modules>
+        <module>spring-cloud-commons-tools</module>
+        <module>spring-cloud-commons-constant</module>
+        <module>spring-cloud-commons-core</module>
+    </modules>
+    <packaging>pom</packaging>
+    <description>常用公用包</description>
+
+    <parent>
+        <artifactId>spring-cloud</artifactId>
+        <groupId>com.exmaple</groupId>
+        <version>1.0.0</version>
+        <relativePath/>
+    </parent>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.7.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <fork>true</fork>
+                        <compilerArgs>
+                            <arg>-bootclasspath</arg>
+                            <arg>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <finalName>spring-cloud-commons</finalName>
+    </build>
+</project>

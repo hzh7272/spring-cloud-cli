@@ -1,16 +1,12 @@
-########################################################################
-####                    spring-cloud-config配置服务中心               ####
-########################################################################
-
 server:
   port: 6001
 
 spring:
   profiles:
-    active: dev
+    active: @profileActive@
   application:
-    name: config_server
+    name: config-server
 
 eureka:
   instance:
-    appname: config_server
+    appname: config-server
