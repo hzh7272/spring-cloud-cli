@@ -9,12 +9,17 @@
 
     <parent>
         <artifactId>spring-cloud-commons</artifactId>
-        <groupId>com.exmaple</groupId>
+        <groupId>com.example</groupId>
         <version>1.0.0</version>
     </parent>
 
     <dependencies>
-
+        <!-- 模板引擎 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -14,7 +14,7 @@
 
     <parent>
         <artifactId>spring-cloud</artifactId>
-        <groupId>com.exmaple</groupId>
+        <groupId>com.example</groupId>
         <version>1.0.0</version>
         <relativePath/>
     </parent>
