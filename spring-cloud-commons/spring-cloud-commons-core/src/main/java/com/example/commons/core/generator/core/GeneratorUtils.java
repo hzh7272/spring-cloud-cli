@@ -16,6 +16,10 @@ public class GeneratorUtils {
 	}
 
 	public static String formatName(String name) {
+		return "`" + formatNameSimple(name) + "`";
+	}
+
+	public static String formatNameSimple(String name) {
 		name = getClassHandleName(name);
 
 		StringBuilder columnName = new StringBuilder();
@@ -29,6 +33,6 @@ public class GeneratorUtils {
 			}
 		}
 
-		return "`" + columnName.toString() + "`";
+		return columnName.toString();
 	}
 }

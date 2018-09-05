@@ -12,7 +12,7 @@ import java.time.Instant;
  * @author hzh 2018/9/5 16:22
  */
 @Data
-@Table(name = "test_demo")
+@Table(name = "test_demo", comment = "测试")
 public class TestDemo extends BasicModel {
 
     @TableColumn(primaryKey = true, autoIncrease = true, comment = "逐渐", notNull = true)
@@ -21,7 +21,7 @@ public class TestDemo extends BasicModel {
     private String name;
     @TableColumn(length = 1, comment = "状态")
     private Integer state;
-    @TableColumn(length = 10, decimalPoint = 2, comment = "价格", notNull = true)
+    @TableColumn(length = 10, decimalPoint = 2, comment = "价格")
     private BigDecimal price;
     @TableColumn(comment = "用户ID", defaultValue = "1", notNull = true, index = true, uniqueKey = true)
     private Long memberId;

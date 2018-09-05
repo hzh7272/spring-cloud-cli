@@ -11,7 +11,9 @@ public class Column {
 
 	private Boolean primaryKey;
 	private Boolean autoIncrement;
+	private String fieldName;
 	private String columnName;
+	private String columnNameSimple;
 	private String jdbcType;
 	private Integer length;
 	private Integer decimalPoint;

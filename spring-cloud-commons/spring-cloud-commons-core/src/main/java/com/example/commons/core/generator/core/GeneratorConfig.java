@@ -18,7 +18,12 @@ public class GeneratorConfig {
 	private boolean generatorController;
 	private boolean generatorStaticHtmlAndJs;
 
-	public GeneratorConfig() {
+	private String xmlPath;
+	private String mapperPath;
+	private String mapperPackage;
+	private String author;
+
+	public GeneratorConfig(String xmlPath, String mapperPath, String mapperPackage, String author) {
 		this.generatorAll = false;
 		this.generatorTable = false;
 		this.generatorMapper = false;
@@ -26,5 +31,10 @@ public class GeneratorConfig {
 		this.generatorService = false;
 		this.generatorController = false;
 		this.generatorStaticHtmlAndJs = false;
+
+		this.xmlPath = xmlPath;
+		this.mapperPath = mapperPath;
+		this.mapperPackage = mapperPackage;
+		this.author = author;
 	}
 }

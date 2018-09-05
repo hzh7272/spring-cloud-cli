@@ -1,0 +1,18 @@
+#set($model=$generatorInfo.model)
+#set($table=$generatorInfo.table)
+package ${generatorInfo.myBatisMapperPackage};
+
+import ${model.classFullName};
+import com.example.commons.core.base.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+/**
+ * ${table.comment}数据操作接口
+ * @author ${generatorInfo.author} ${generatorInfo.time}
+ */
+@Mapper
+@Repository
+public interface ${model.className}Mapper extends BasicMapper<${model.className}, Long> {
+
+}

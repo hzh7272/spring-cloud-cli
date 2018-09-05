@@ -1,8 +1,8 @@
 package com.example.commons.core.generator.core;
 
 import com.example.commons.core.generator.bean.Column;
+import com.example.commons.core.generator.bean.Model;
 import com.example.commons.core.generator.bean.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -12,9 +12,20 @@ import java.util.List;
  * @author hzh 2018/8/26 下午10:16
  */
 @Data
-@AllArgsConstructor
 public class GeneratorInfo {
 
 	private Table table;
 	private List<Column> columnList;
+	private Model model;
+	private String myBatisXmlPath;
+	private String myBatisMapperPath;
+	private String myBatisMapperPackage;
+	private String author;
+	private String time;
+
+	public GeneratorInfo(Table table, List<Column> columnList, Model model) {
+		this.table = table;
+		this.columnList = columnList;
+		this.model = model;
+	}
 }

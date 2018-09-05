@@ -2,7 +2,12 @@ package com.example.commons.core.generator.core;
 
 import com.example.commons.core.generator.bean.Column;
 import com.example.commons.core.generator.bean.Table;
+import com.example.commons.core.generator.bean.TableColumn;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -73,7 +78,7 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 					.append(isNoLengthType.test(column) ? "" : column.getLength())
 					.append(isNoLengthType.test(column) ? "" : getDecimalPoint.apply(column))
 					.append(isNoLengthType.test(column) ? "" : ")")
-					.append(column.getNotNull() ? " NOT NULL" : "")
+					.append(column.getNotNull() ? " NOT NULL" : "TIMESTAMP".equals(column.getJdbcType()) ? " NULL" : "")
 					.append(column.getAutoIncrement() ? " AUTO_INCREMENT" : getDefaultValue.apply(column))
 					.append("".equals(column.getComment()) ? "" : " COMMENT '" + column.getComment() + "',\n");
 		});
@@ -108,11 +113,26 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 	}
 
 	/**
+	 * 生成数据库增量表SQL
+	 * @param tableColumnList 数据库字段集合
+	 * @return 返回增量表SQL
+	 */
+	@Override
+	protected String generatorAlterSql(List<TableColumn> tableColumnList) {
+		return null;
+	}
+
+	/**
 	 * 执行建表SQL
 	 * @param ddlSql 建表ddl语句
 	 */
 	@Override
 	protected void executeSql(String ddlSql) {
-		System.out.println(ddlSql);
+		try (Connection connection = DriverManager.getConnection(mySqlDbInfo.getUrl(), mySqlDbInfo.getUsername(), mySqlDbInfo.getPassword());
+				PreparedStatement preparedStatement = connection.prepareStatement(ddlSql);) {
+//			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

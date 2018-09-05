@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+#set($model=$generatorInfo.model)
+#set($table=$generatorInfo.table)
+#set($columns=$generatorInfo.columnList)
+<mapper namespace="${generatorInfo.myBatisMapperPackage}.${model.className}Mapper">
+
+    <!-- 表与实体类字段对应 ${generatorInfo.author} ${generatorInfo.time} -->
+    <resultMap id="BaseResultMap" type="${model.classFullName}" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+#foreach($column in $columns)
+#if(${column.columnNameSimple} != 'id')
+        <result column="${column.columnNameSimple}" property="${column.fieldName}"/>
+#end
+#end
+    </resultMap>
+
+    <!-- 表字段名称 ${generatorInfo.author} ${generatorInfo.time} -->
+    <sql id="columnList" >
+        #foreach($column in $columns)${column.columnName}#if($velocityCount<$columns.size()), #end#if(0==$velocityCount%8)
+
+        #end
+#end
+
+    </sql>
+
+    <!-- 保存 ${generatorInfo.author} ${generatorInfo.time} -->
+    <insert id="save" parameterType="${model.classFullName}" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ${table.tableName}
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+#foreach($column in $columns)
+#if(${column.columnNameSimple} != 'id')
+    #if(${column.jdbcType} == 'TINYINT' || ${column.jdbcType} == 'INT' || ${column.jdbcType} == 'BIGINT' || ${column.jdbcType} == 'DECIMAL')
+        <if test="null != ${column.fieldName}">
+    #else
+        <if test="null != ${column.fieldName} and '' != ${column.fieldName}">
+    #end
+            ${column.columnName},
+            </if>
+#end
+#end
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+#foreach($column in $columns)
+#if(${column.columnNameSimple} != 'id')
+    #if(${column.jdbcType} == 'TINYINT' || ${column.jdbcType} == 'INT' || ${column.jdbcType} == 'BIGINT' || ${column.jdbcType} == 'DECIMAL')
+        <if test="null != ${column.fieldName}">
+    #else
+        <if test="null != ${column.fieldName} and '' != ${column.fieldName}">
+    #end
+            #{${column.fieldName}, jdbcType = ${column.jdbcType}},
+            </if>
+#end
+#end
+        </trim>
+    </insert>
+
+    <!-- 批量保存 ${generatorInfo.author} ${generatorInfo.time} -->
+    <insert id="saveBatch">
+        INSERT INTO ${table.tableName}
+        (#foreach($column in $columns)
+#if(${column.columnNameSimple} != 'id')
+${column.columnName}#if($velocityCount<$columns.size()), #end#if(0==$velocityCount%8)
+
+        #end
+#end
+#end)
+        <foreach collection="modelList" item="model" separator="," >
+            (#foreach($column in $columns)
+#if(${column.columnNameSimple} != 'id')
+#{${column.fieldName}, jdbcType = ${column.jdbcType}}#if($velocityCount<$columns.size()), #end#if(0==$velocityCount%5)
+
+            #end
+#end
+#end)
+        </foreach>
+    </insert>
+
+    <!-- 根据ID删除 ${generatorInfo.author} ${generatorInfo.time} -->
+    <update id="deleteById">
+        UPDATE ${table.tableName} SET `delete_status` = 2 WHERE id = #{id, jdbcType = BIGINT}
+    </update>
+
+    <!-- 根据ID查询 ${generatorInfo.author} ${generatorInfo.time} -->
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT <include refid="columnList"/> FROM ${table.tableName} WHERE id = #{id, jdbcType = BIGINT} AND `delete_status` = 1
+    </select>
+
+    <!-- 根据ID更新 ${generatorInfo.author} ${generatorInfo.time} -->
+    <update id="updateById">
+        UPDATE ${table.tableName}
+        <set>
+#foreach($column in $columns)
+#if(${column.columnNameSimple} != 'id')
+    #if(${column.jdbcType} == 'TINYINT' || ${column.jdbcType} == 'INT' || ${column.jdbcType} == 'BIGINT' || ${column.jdbcType} == 'DECIMAL')
+        <if test="null != ${column.fieldName}">
+    #else
+        <if test="null != ${column.fieldName} and '' != ${column.fieldName}">
+    #end
+            ${column.columnName} = #{${column.fieldName}, jdbcType = ${column.jdbcType}},
+            </if>
+#end
+#end
+        </set>
+        WHERE id = #{id, jdbcType = BIGINT}
+    </update>
+
+</mapper>
