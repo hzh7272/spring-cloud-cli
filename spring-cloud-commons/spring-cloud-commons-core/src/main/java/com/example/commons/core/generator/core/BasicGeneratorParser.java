@@ -68,8 +68,10 @@ public class BasicGeneratorParser implements GeneratorParser {
 	private Table parseTable() {
 		Table table = new Table();
 		Optional.ofNullable(this.clazz.getAnnotation(com.example.commons.core.generator.annotation.Table.class)).ifPresent(annotation -> {
-			table.setTableName(Optional.ofNullable(annotation.name()).orElse(formatName(this.clazz.getSimpleName())));
+			table.setTableName(formatName(Optional.ofNullable(annotation.name()).orElse(this.clazz.getSimpleName())));
 			table.setComment(annotation.comment());
+			table.setCharset(annotation.charset());
+			table.setEngine(annotation.engine());
 			table.setUpdateAble(annotation.updateAble());
 		});
 		return table;
@@ -80,7 +82,7 @@ public class BasicGeneratorParser implements GeneratorParser {
 	 * @return 返回数据库字段集合
 	 */
 	private List<Column> parseColumns() {
-		return Arrays.stream(this.clazz.getFields()).map(field -> {
+		return Arrays.stream(this.clazz.getDeclaredFields()).map(field -> {
 			TableColumn tableColumn = field.getAnnotation(TableColumn.class);
 			Column column = new Column();
 			column.setPrimaryKey(tableColumn.primaryKey());
@@ -92,6 +94,8 @@ public class BasicGeneratorParser implements GeneratorParser {
 			column.setDefaultVale(tableColumn.defaultValue());
 			column.setIndexKey(tableColumn.index());
 			column.setUniqueKey(tableColumn.uniqueKey());
+			column.setComment(tableColumn.comment());
+			column.setDecimalPoint(tableColumn.decimalPoint());
 			return column;
 		}).collect(Collectors.toList());
 	}

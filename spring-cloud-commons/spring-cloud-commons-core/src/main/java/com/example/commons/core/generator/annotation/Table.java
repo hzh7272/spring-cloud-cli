@@ -28,4 +28,16 @@ public @interface Table {
 	 * @return 默认 false
 	 */
 	boolean updateAble() default false;
+
+	/**
+	 * 数据库表编码
+	 * @return 默认utf8mb4
+	 */
+	String charset() default "utf8mb4";
+
+	/**
+	 * 数据库引擎
+	 * @return 默认InnoDB
+	 */
+	String engine() default "InnoDB";
 }

@@ -11,5 +11,7 @@ public class Table {
 
 	private String tableName;
 	private String comment;
+	private String charset;
+	private String engine;
 	private Boolean updateAble;
 }

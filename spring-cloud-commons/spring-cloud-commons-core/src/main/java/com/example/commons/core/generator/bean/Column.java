@@ -14,6 +14,7 @@ public class Column {
 	private String columnName;
 	private String jdbcType;
 	private Integer length;
+	private Integer decimalPoint;
 	private Boolean notNull;
 	private String comment;
 	private Object defaultVale;
