@@ -6,27 +6,29 @@ package com.example.commons.core.generator.core;
  */
 public class GeneratorUtils {
 
+	private GeneratorUtils() {}
+
 	/**
 	 * Class作为变量时的句柄名称
 	 */
-	public static String getClassHandleName(String simpleName) {
+	private static String getClassHandleName(String simpleName) {
 		return simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1);
 	}
 
 	public static String formatName(String name) {
 		name = getClassHandleName(name);
 
-		StringBuffer stringBuffer = new StringBuffer();
+		StringBuilder columnName = new StringBuilder();
 		for (int i = 0, size = name.length(); i < size; i++) {
 			char c = name.charAt(i);
 			if (Character.isUpperCase(c)) {
-				stringBuffer.append('_');
-				stringBuffer.append(Character.toLowerCase(c));
+				columnName.append('_');
+				columnName.append(Character.toLowerCase(c));
 			} else {
-				stringBuffer.append(c);
+				columnName.append(c);
 			}
 		}
 
-		return "`" + stringBuffer.toString() + "`";
+		return "`" + columnName.toString() + "`";
 	}
 }
