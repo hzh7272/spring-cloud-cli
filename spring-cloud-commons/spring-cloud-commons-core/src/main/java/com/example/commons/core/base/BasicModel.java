@@ -2,6 +2,7 @@ package com.example.commons.core.base;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 /**
@@ -9,7 +10,7 @@ import java.time.Instant;
  * @author hzh 2018/9/3 17:59
  */
 @Data
-public class BasicModel {
+public class BasicModel implements Serializable {
 
     private Instant createTime;
     private Long createUserId;

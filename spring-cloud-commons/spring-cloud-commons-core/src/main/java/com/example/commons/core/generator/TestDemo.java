@@ -1,20 +1,19 @@
 package com.example.commons.core.generator;
 
+import com.example.commons.core.base.BasicModel;
 import com.example.commons.core.generator.annotation.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Date;
 
 /**
  * @author hzh 2018/9/5 16:22
  */
 @Data
 @Table(name = "test_demo")
-public class TestDemo implements Serializable {
+public class TestDemo extends BasicModel {
 
     @TableColumn(primaryKey = true, autoIncrease = true, comment = "逐渐", notNull = true)
     private Long id;
@@ -28,8 +27,6 @@ public class TestDemo implements Serializable {
     private Long memberId;
     @TableColumn(bigText = true, comment = "内容")
     private String content;
-    @TableColumn(comment = "创建时间")
-    private Date createTime;
     @TableColumn(comment = "tttt")
     private Instant instant;
 

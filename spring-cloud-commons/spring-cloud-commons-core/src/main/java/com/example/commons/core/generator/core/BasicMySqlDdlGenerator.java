@@ -5,6 +5,7 @@ import com.example.commons.core.generator.bean.Table;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -35,12 +36,12 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 
 	/**
 	 * 建表SQL
-	 * @param ddlSql
+	 * @param ddlSql ddlSql
 	 */
 	private void createTableSql(StringBuilder ddlSql) {
 		Table table = generatorInfo.getTable();
 
-		ddlSql.append("CREATE TABLE " + table.getTableName() + " (\n");
+		ddlSql.append("CREATE TABLE ").append(table.getTableName()).append(" (\n");
 
 		// 是否有默认值
 		Predicate<Column> hasDefaultValue = column -> null != column.getDefaultVale() && !"".equals(column.getDefaultVale());
@@ -48,6 +49,9 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 		Predicate<Column> isFloatType = column -> "DECIMAL".equals(column.getJdbcType());
 		// 是否为无长度类型
 		Predicate<Column> isNoLengthType = column -> "TEXT".equals(column.getJdbcType()) || "TIMESTAMP".equals(column.getJdbcType());
+
+		Function<Column, String> getDecimalPoint = column -> isFloatType.test(column) ? ", " + column.getDecimalPoint() : "";
+		Function<Column, String> getDefaultValue = column -> hasDefaultValue.test(column) ? " DEFAULT '" + column.getDefaultVale() + "'" : " DEFAULT NULL";
 
 		List<Column> primaryKeyList = new ArrayList<>();
 		List<Column> indexKeyList = new ArrayList<>();
@@ -58,19 +62,19 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 			if (column.getPrimaryKey()) {
 				primaryKeyList.add(column);
 			}
+			// 判断是否为索引
 			if (column.getIndexKey()) {
 				indexKeyList.add(column);
 			}
 
-			ddlSql.append("\t" + column.getColumnName() + " ")
+			ddlSql.append("\t").append(column.getColumnName()).append(" ")
 					.append(column.getJdbcType())
 					.append(isNoLengthType.test(column) ? "" : "(")
 					.append(isNoLengthType.test(column) ? "" : column.getLength())
-					.append(isNoLengthType.test(column) ? "" : isFloatType.test(column) ? ", " + column.getDecimalPoint() : "")
+					.append(isNoLengthType.test(column) ? "" : getDecimalPoint.apply(column))
 					.append(isNoLengthType.test(column) ? "" : ")")
 					.append(column.getNotNull() ? " NOT NULL" : "")
-					.append(column.getAutoIncrement() ? " AUTO_INCREMENT" :
-							hasDefaultValue.test(column) ? " DEFAULT '" + column.getDefaultVale() + "'" : " DEFAULT NULL")
+					.append(column.getAutoIncrement() ? " AUTO_INCREMENT" : getDefaultValue.apply(column))
 					.append("".equals(column.getComment()) ? "" : " COMMENT '" + column.getComment() + "',\n");
 		});
 
@@ -96,8 +100,8 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 		ddlSql.deleteCharAt(ddlSql.length() - 1);
 
 
-		ddlSql.append("\n) ENGINE=" + table.getEngine())
-				.append(" AUTO_INCREMENT=1 DEFAULT CHARSET=" + table.getCharset())
+		ddlSql.append("\n) ENGINE=").append(table.getEngine())
+				.append(" AUTO_INCREMENT=1 DEFAULT CHARSET=").append(table.getCharset())
 				.append(" ROW_FORMAT=COMPACT")
 				.append("".equals(table.getComment()) ? "" : " COMMENT='" + table.getComment() + "'")
 				.append(";");
