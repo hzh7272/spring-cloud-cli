@@ -5,6 +5,7 @@ import com.example.commons.core.generator.bean.Model;
 import com.example.commons.core.generator.bean.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
 import com.example.commons.core.generator.bean.Column;
+import com.example.commons.core.generator.support.JdbcType;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -134,15 +135,15 @@ public class BasicGeneratorParser implements GeneratorParser {
 	private String jdbcType(Class filedType, TableColumn tableColumn) {
 		String jdbcType = "";
 		if (String.class == filedType) {
-			jdbcType = tableColumn.bigText() ? "TEXT" : "VARCHAR";
+			jdbcType = tableColumn.bigText() ? JdbcType.TEXT : JdbcType.VARCHAR;
 		} else if (Integer.class == filedType) {
-			jdbcType = 1 == tableColumn.length() ? "TINYINT" : "INT";
+			jdbcType = 1 == tableColumn.length() ? JdbcType.TINYINT : JdbcType.INT;
 		} else if (Long.class == filedType) {
-			jdbcType = "BIGINT";
+			jdbcType = JdbcType.BIGINT;
 		} else if (Date.class == filedType || Instant.class == filedType || ZonedDateTime.class == filedType || LocalDateTime.class == filedType) {
-			jdbcType = "TIMESTAMP";
+			jdbcType = JdbcType.TIMESTAMP;
 		} else if (Float.class == filedType || Double.class == filedType || BigDecimal.class == filedType) {
-			jdbcType = "DECIMAL";
+			jdbcType = JdbcType.DECIMAL;
 		}
 		return jdbcType;
 	}

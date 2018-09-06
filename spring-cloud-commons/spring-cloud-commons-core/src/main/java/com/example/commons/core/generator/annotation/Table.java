@@ -15,13 +15,13 @@ public @interface Table {
 	 * 数据库表名
 	 * @return 默认空，自动生成
 	 */
-	String name() default "";
+	String name();
 
 	/**
 	 * 注释
 	 * @return 默认空
 	 */
-	String comment() default "";
+	String comment();
 
 	/**
 	 * 是否更新信息

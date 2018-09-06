@@ -3,7 +3,7 @@
 package ${generatorInfo.myBatisMapperPackage};
 
 import ${model.classFullName};
-import com.example.commons.core.base.BaseMapper;
+import com.example.commons.core.base.BasicMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

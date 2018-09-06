@@ -10,9 +10,9 @@ import com.example.commons.core.generator.core.MySqlDbInfo;
 public class Test {
 
     public static void main(String[] args) {
-        MySqlDbInfo mySqlDbInfo = new MySqlDbInfo("localhost", 3306, "spring-cloud", "springCloud@2018", "com.mysql.jdbc.Driver", "spring-cloud-user");
+        MySqlDbInfo mySqlDbInfo = new MySqlDbInfo("localhost", 3306, "root", "Hongzh0504!@#", "com.mysql.jdbc.Driver", "test");
 
-        GeneratorConfig generatorConfig = new GeneratorConfig("/Users/hzh/workspace/generator/", "/Users/hzh/workspace/generator/", "com.example.dao", "hzh");
+        GeneratorConfig generatorConfig = new GeneratorConfig("E:\\generator\\", "E:\\generator\\", "com.example.dao", "hzh");
         generatorConfig.setGeneratorTable(true);
         generatorConfig.setGeneratorMapperXml(true);
         generatorConfig.setGeneratorMapper(true);

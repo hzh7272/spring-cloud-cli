@@ -13,6 +13,5 @@ public class TableColumn {
 	private String jdbcType;
 	private Integer length;
 	private Boolean notNull;
-	private Boolean uniqueKey;
 	private Object defaultValue;
 }
