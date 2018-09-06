@@ -4,6 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-cloud-producer-user-model</artifactId>
     <name>spring-cloud-producer-user-model</name>
+    <packaging>jar</packaging>
+    <description>用户服务数据模型</description>
 
     <parent>
         <artifactId>spring-cloud-producer</artifactId>
@@ -13,14 +15,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>com.example</groupId>
+            <artifactId>spring-cloud-commons-core</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
     <build>
-
+        <finalName>spring-cloud-producer-user-model</finalName>
     </build>
 </project>
