@@ -14,4 +14,5 @@ public class Table {
 	private String charset;
 	private String engine;
 	private Boolean updateAble;
+	private Boolean dropIfExits;
 }

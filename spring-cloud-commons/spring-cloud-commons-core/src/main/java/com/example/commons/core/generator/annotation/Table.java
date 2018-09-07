@@ -30,6 +30,12 @@ public @interface Table {
 	boolean updateAble() default false;
 
 	/**
+	 * 是否重建表
+	 * @return 默认 false
+	 */
+	boolean dropIfExist() default false;
+
+	/**
 	 * 数据库表编码
 	 * @return 默认utf8mb4
 	 */

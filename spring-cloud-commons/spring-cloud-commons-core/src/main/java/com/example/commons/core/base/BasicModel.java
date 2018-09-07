@@ -8,6 +8,7 @@ import java.time.Instant;
 
 /**
  * 持久化数据模型基类
+ * @version 1.0.0
  * @author hzh 2018/9/3 17:59
  */
 @Data

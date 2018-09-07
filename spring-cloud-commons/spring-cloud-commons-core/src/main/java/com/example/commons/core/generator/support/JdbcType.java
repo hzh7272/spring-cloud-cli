@@ -15,4 +15,5 @@ public class JdbcType {
     public static final String BIGINT = "BIGINT";
     public static final String TIMESTAMP = "TIMESTAMP";
     public static final String DECIMAL = "DECIMAL";
+    public static final String ENUM = "ENUM";
 }

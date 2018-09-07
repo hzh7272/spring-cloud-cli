@@ -97,6 +97,7 @@ public class BasicGeneratorParser implements GeneratorParser {
 			table.setCharset(annotation.charset());
 			table.setEngine(annotation.engine());
 			table.setUpdateAble(annotation.updateAble());
+			table.setDropIfExits(annotation.dropIfExist());
 		});
 		return table;
 	}
@@ -144,6 +145,8 @@ public class BasicGeneratorParser implements GeneratorParser {
 			jdbcType = JdbcType.TIMESTAMP;
 		} else if (Float.class == filedType || Double.class == filedType || BigDecimal.class == filedType) {
 			jdbcType = JdbcType.DECIMAL;
+		} else if (Enum.class == filedType) {
+			jdbcType = JdbcType.ENUM;
 		}
 		return jdbcType;
 	}

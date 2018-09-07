@@ -1,5 +1,6 @@
 package com.example.commons.core.generator.core;
 
+import com.example.commons.core.generator.bean.Table;
 import com.example.commons.core.generator.bean.TableColumn;
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,18 +75,22 @@ public abstract class AbstractMySqlDdlGenerator {
 			connection = DriverManager.getConnection(mySqlDbInfo.getUrl(), mySqlDbInfo.getUsername(), mySqlDbInfo.getPassword());
 			connection.setAutoCommit(false);
 
-			if (generatorInfo.getTable().getUpdateAble() && this.isTableExits(connection, this.generatorInfo.getTable().getTableName())) {
-				// 表存在
-				List<TableColumn> tableColumnList = this.getTableColumns(connection, this.generatorInfo.getTable().getTableName());
-				String alertSql = this.generatorAlterSql(tableColumnList, this.generatorInfo);
-				for (String sql : alertSql.split(";")) {
-					this.executeSql(connection, sql);
-				}
-			} else {
-				// 表不存在
+			Table table = generatorInfo.getTable();
+
+			if (!this.isTableExits(connection, this.generatorInfo.getTable().getTableName()) || table.getDropIfExits()) {
+				// 表不存在，获取需要删除表重建
 				String ddlSql = this.generatorDdlSql(this.generatorInfo);
 				for (String sql : ddlSql.split(";")) {
 					this.executeSql(connection, sql);
+				}
+			} else {
+				// 更新表结构
+				if (table.getUpdateAble()) {
+					List<TableColumn> tableColumnList = this.getTableColumns(connection, this.generatorInfo.getTable().getTableName());
+					String alertSql = this.generatorAlterSql(tableColumnList, this.generatorInfo);
+					for (String sql : alertSql.split(";")) {
+						this.executeSql(connection, sql);
+					}
 				}
 			}
 

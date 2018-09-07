@@ -16,9 +16,14 @@ public class SystemUser {
     private Long id;
     @TableColumn(notNull = true, length = 32, comment = "账号")
     private String account;
+    @TableColumn(comment = "手机")
     private String mobile;
+    @TableColumn(length = 32, notNull = true, comment = "用户名")
     private String username;
+    @TableColumn(length = 128, comment = "头像")
     private String avatarUrl;
+    @TableColumn(length = 128, notNull = true, comment = "密码")
     private String password;
+    @TableColumn(length = 1, notNull = true, defaultValue = "0", comment = "超级管理员（1：是，0：否）")
     private Integer superAdmin;
 }
