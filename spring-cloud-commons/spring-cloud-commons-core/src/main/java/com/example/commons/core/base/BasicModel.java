@@ -1,6 +1,8 @@
 package com.example.commons.core.base;
 
 import com.example.commons.core.generator.annotation.TableColumn;
+import com.example.commons.global.enumm.DeleteStatus;
+import com.example.commons.global.enumm.GlobalStatus;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,8 +24,8 @@ public class BasicModel implements Serializable {
     private Instant modifyTime;
     @TableColumn(comment = "修改人")
     private Long modifyUserId;
-    @TableColumn(length = 1, defaultValue = "1", comment = "删除状态（1：有效，2：删除）")
-    private Integer deleteStatus;
-    @TableColumn(length = 1, defaultValue = "1", comment = "状态（1：有效，0：无效）")
-    private Integer status;
+    @TableColumn(defaultValue = "VALID", comment = "删除状态")
+    private DeleteStatus deleteStatus;
+    @TableColumn(defaultValue = "VALID", comment = "状态")
+    private GlobalStatus status;
 }

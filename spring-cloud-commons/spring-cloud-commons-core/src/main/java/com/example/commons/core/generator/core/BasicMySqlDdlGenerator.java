@@ -84,12 +84,12 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 			char leftChar = '(';
 
 			while (showTableColumnsRs.next()) {
-				TableColumn tableColumn = new TableColumn();
+				var tableColumn = new TableColumn();
 				tableColumn.setField(showTableColumnsRs.getString("Field"));
 
 				String type = showTableColumnsRs.getString("Type");
 				tableColumn.setJdbcType(type.substring(0, 0 >= type.indexOf(leftChar) ? type.length() : type.indexOf(leftChar)));
-				tableColumn.setLength(0 >= type.indexOf(leftChar) ? 0 : Integer.valueOf(type.substring(type.indexOf(leftChar) + 1, type.length() - 1).split(",")[0]));
+				tableColumn.setLength(JdbcType.ENUM.equals(tableColumn.getJdbcType()) || 0 >= type.indexOf(leftChar) ? 0 : Integer.valueOf(type.substring(type.indexOf(leftChar) + 1, type.length() - 1).split(",")[0]));
 
 				tableColumn.setNotNull("NO".equals(showTableColumnsRs.getString("Null")));
 				tableColumn.setDefaultValue(showTableColumnsRs.getObject("Default"));
@@ -126,7 +126,7 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 	 */
 	@Override
 	protected String generatorDdlSql(GeneratorInfo generatorInfo) {
-		StringBuilder ddlSql = new StringBuilder();
+		var ddlSql = new StringBuilder();
 		this.createTableSql(generatorInfo, ddlSql);
 		return ddlSql.toString();
 	}
@@ -172,8 +172,8 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 	private Function<Column, String> getSpecialDefaultValue = column -> {
 		String defaultValue = " DEFAULT NULL";
 		if (JdbcType.TIMESTAMP.equals(column.getJdbcType()) && column.getNotNull()) {
-			defaultValue = " DEFAULT '0000-00-00 00:00:00'";
-		} else if (JdbcType.BIGINT.equals(column.getJdbcType())) {
+			defaultValue = " DEFAULT CURRENT_TIMESTAMP";
+		} else if (JdbcType.BIGINT.equals(column.getJdbcType()) || JdbcType.VARCHAR.equals(column.getJdbcType())) {
 			defaultValue = "";
 		}
 		return defaultValue;
@@ -206,14 +206,13 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 			}
 
 			ddlSql.append("\t").append(column.getColumnName()).append(" ")
-					.append(column.getJdbcType())
-					.append(isNoLengthType.test(column) ? "" : "(")
-					.append(isNoLengthType.test(column) ? "" : getColumnLength.apply(column))
-					.append(isNoLengthType.test(column) ? "" : getDecimalPoint.apply(column))
-					.append(isNoLengthType.test(column) ? "" : ")")
-					.append(column.getNotNull() ? " NOT NULL" : getTimestamp.apply(column))
+					.append(column.getJdbcType());
+
+			generatorColumnSql(ddlSql, column);
+
+			ddlSql.append(column.getNotNull() ? " NOT NULL" : getTimestamp.apply(column))
 					.append(column.getAutoIncrement() ? " AUTO_INCREMENT" : getDefaultValue.apply(column))
-					.append("".equals(column.getComment()) ? "" : " COMMENT '" + column.getComment() + "',\n");
+					.append("".equals(column.getComment()) ? ",\n" : " COMMENT '" + column.getComment() + "',\n");
 		});
 	}
 
@@ -257,7 +256,7 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 		// 需要删除的字段
 		List<TableColumn> deleteColumnList = tableColumnList.stream().filter(isNotInGeneratorColumn).collect(Collectors.toList());
 
-		StringBuilder alterSql = new StringBuilder();
+		var alterSql = new StringBuilder();
 
 		// 删除字段语句
 		if (!deleteColumnList.isEmpty()) {
@@ -272,23 +271,45 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 		// 新增字段语句
 		if (!addColumnList.isEmpty()) {
 			alterSql.append("ALTER TABLE ").append(generatorInfo.getTable().getTableName()).append(" ");
-			addColumnList.forEach(column -> alterSql.append("ADD COLUMN ")
+			addColumnList.forEach(column -> {
+				alterSql.append("ADD COLUMN ")
 					.append(column.getColumnName())
 					.append(" ")
-					.append(column.getJdbcType())
-					.append(isNoLengthType.test(column) ? "" : "(")
-					.append(isNoLengthType.test(column) ? "" : getColumnLength.apply(column))
-					.append(isNoLengthType.test(column) ? "" : getDecimalPoint.apply(column))
-					.append(isNoLengthType.test(column) ? "" : ")")
-					.append(column.getNotNull() ? " NOT NULL" : getTimestamp.apply(column))
+					.append(column.getJdbcType());
+
+				generatorColumnSql(alterSql, column);
+
+				alterSql.append(column.getNotNull() ? " NOT NULL" : getTimestamp.apply(column))
 					.append(getDefaultValue.apply(column))
-					.append("".equals(column.getComment()) ? "" : " COMMENT '" + column.getComment() + "', "));
+					.append("".equals(column.getComment()) ? ", " : " COMMENT '" + column.getComment() + "', ");
+			});
 
 			alterSql.deleteCharAt(alterSql.length() - 1);
 			alterSql.deleteCharAt(alterSql.length() - 1);
 		}
 
 		return alterSql.toString();
+	}
+
+	/**
+	 * 创建字段SQL
+	 * @param sql sql语句Builder
+	 * @param column 字段
+	 */
+	private void generatorColumnSql(StringBuilder sql, Column column) {
+		if (JdbcType.ENUM.equals(column.getJdbcType())) {
+			sql.append("(");
+			for (int i = 0, size = column.getEnumValues().length; i < size; i++) {
+				if (0 != i) {
+					sql.append(", ");
+				}
+				sql.append("'").append(column.getEnumValues()[i]).append("'");
+			}
+			sql.append(")");
+		} else {
+			sql.append(isNoLengthType.test(column) ? "" : "(").append(isNoLengthType.test(column) ? "" : getColumnLength.apply(column))
+					.append(isNoLengthType.test(column) ? "" : getDecimalPoint.apply(column)).append(isNoLengthType.test(column) ? "" : ")");
+		}
 	}
 
 	/**
@@ -299,7 +320,8 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 	 */
 	@Override
 	protected void executeSql(Connection connection, String executeSql) throws SQLException {
-		log.info("执行SQL \n{};", executeSql);
+		log.info("执行SQL \n{};",  executeSql);
+		System.out.println("执行SQL \n " + executeSql);
 		try (PreparedStatement preparedStatement = connection.prepareStatement(executeSql)) {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {

@@ -1,4 +1,4 @@
-package com.example.commons.constant.system;
+package com.example.commons.global.enumm;
 
 /**
  * 系统环境枚举

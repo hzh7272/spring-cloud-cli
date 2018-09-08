@@ -12,7 +12,7 @@ import java.time.Instant;
  * @author hzh 2018/9/5 16:22
  */
 @Data
-@Table(name = "test_demo", comment = "测试")
+@Table(name = "test_demo", comment = "测试", dropIfExist = true)
 public class TestDemo extends BasicModel {
 
     @TableColumn(primaryKey = true, autoIncrease = true, comment = "逐渐", notNull = true)
@@ -29,5 +29,7 @@ public class TestDemo extends BasicModel {
     private String content;
     @TableColumn(comment = "tttt")
     private Instant instant;
+    @TableColumn
+    private Tenum tenum;
 
 }

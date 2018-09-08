@@ -32,6 +32,12 @@
             <version>3.4.4</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>spring-cloud-commons-constant</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

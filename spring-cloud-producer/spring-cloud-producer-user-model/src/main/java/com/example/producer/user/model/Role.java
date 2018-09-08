@@ -1,16 +1,17 @@
 package com.example.producer.user.model;
 
+import com.example.commons.core.base.BasicModel;
 import com.example.commons.core.generator.annotation.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 系统角色数据模型
  * @author hzh 2018/9/7 15:41
  */
-@Data
-@Table(name = "system_role", comment = "系统角色表")
-public class SystemRole {
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "role", comment = "系统角色表")
+public class Role extends BasicModel {
 
     @TableColumn(primaryKey = true, autoIncrease = true, notNull = true, comment = "系统角色ID")
     private Long id;

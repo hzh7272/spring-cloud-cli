@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.producer.user.dao.UserRoleMapper">
+
+    <!-- 表与实体类字段对应 hzh 2018-09-09 00:03 -->
+    <resultMap id="BaseResultMap" type="com.example.producer.user.model.UserRole" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="modify_user_id" property="modifyUserId"/>
+        <result column="delete_status" property="deleteStatus"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 表字段名称 hzh 2018-09-09 00:03 -->
+    <sql id="columnList" >
+        `id`, `user_id`, `role_id`, `create_time`, `create_user_id`, `modify_time`, `modify_user_id`, `delete_status`, 
+        `status`
+    </sql>
+
+    <!-- 保存 hzh 2018-09-09 00:03 -->
+    <insert id="save" parameterType="com.example.producer.user.model.UserRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user_role`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="null != userId">
+                `user_id`,
+            </if>
+            <if test="null != roleId">
+                `role_id`,
+            </if>
+            <if test="null != createTime and '' != createTime">
+                `create_time`,
+            </if>
+            <if test="null != createUserId">
+                `create_user_id`,
+            </if>
+            <if test="null != modifyTime and '' != modifyTime">
+                `modify_time`,
+            </if>
+            <if test="null != modifyUserId">
+                `modify_user_id`,
+            </if>
+            <if test="null != deleteStatus and '' != deleteStatus">
+                `delete_status`,
+            </if>
+            <if test="null != status and '' != status">
+                `status`,
+            </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="null != userId">
+                #{userId, jdbcType = BIGINT},
+            </if>
+            <if test="null != roleId">
+                #{roleId, jdbcType = BIGINT},
+            </if>
+            <if test="null != createTime and '' != createTime">
+                #{createTime, jdbcType = TIMESTAMP},
+            </if>
+            <if test="null != createUserId">
+                #{createUserId, jdbcType = BIGINT},
+            </if>
+            <if test="null != modifyTime and '' != modifyTime">
+                #{modifyTime, jdbcType = TIMESTAMP},
+            </if>
+            <if test="null != modifyUserId">
+                #{modifyUserId, jdbcType = BIGINT},
+            </if>
+            <if test="null != deleteStatus and '' != deleteStatus">
+                #{deleteStatus, jdbcType = ENUM},
+            </if>
+            <if test="null != status and '' != status">
+                #{status, jdbcType = ENUM},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 批量保存 hzh 2018-09-09 00:03 -->
+    <insert id="saveBatch">
+        INSERT INTO `user_role`
+        (`user_id`, `role_id`, `create_time`, `create_user_id`, `modify_time`, `modify_user_id`, `delete_status`, 
+        `status`)
+        <foreach collection="modelList" item="model" separator="," >
+            (#{userId, jdbcType = BIGINT}, #{roleId, jdbcType = BIGINT}, #{createTime, jdbcType = TIMESTAMP}, #{createUserId, jdbcType = BIGINT}, 
+            #{modifyTime, jdbcType = TIMESTAMP}, #{modifyUserId, jdbcType = BIGINT}, #{deleteStatus, jdbcType = ENUM}, #{status, jdbcType = ENUM})
+        </foreach>
+    </insert>
+
+    <!-- 根据ID删除 hzh 2018-09-09 00:03 -->
+    <update id="deleteById">
+        UPDATE `user_role` SET `delete_status` = 2 WHERE id = #{id, jdbcType = BIGINT}
+    </update>
+
+    <!-- 根据ID查询 hzh 2018-09-09 00:03 -->
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT <include refid="columnList"/> FROM `user_role` WHERE id = #{id, jdbcType = BIGINT} AND `delete_status` = 1
+    </select>
+
+    <!-- 根据ID更新 hzh 2018-09-09 00:03 -->
+    <update id="updateById">
+        UPDATE `user_role`
+        <set>
+            <if test="null != userId">
+                `user_id` = #{userId, jdbcType = BIGINT},
+            </if>
+            <if test="null != roleId">
+                `role_id` = #{roleId, jdbcType = BIGINT},
+            </if>
+            <if test="null != createTime and '' != createTime">
+                `create_time` = #{createTime, jdbcType = TIMESTAMP},
+            </if>
+            <if test="null != createUserId">
+                `create_user_id` = #{createUserId, jdbcType = BIGINT},
+            </if>
+            <if test="null != modifyTime and '' != modifyTime">
+                `modify_time` = #{modifyTime, jdbcType = TIMESTAMP},
+            </if>
+            <if test="null != modifyUserId">
+                `modify_user_id` = #{modifyUserId, jdbcType = BIGINT},
+            </if>
+            <if test="null != deleteStatus and '' != deleteStatus">
+                `delete_status` = #{deleteStatus, jdbcType = ENUM},
+            </if>
+            <if test="null != status and '' != status">
+                `status` = #{status, jdbcType = ENUM},
+            </if>
+        </set>
+        WHERE id = #{id, jdbcType = BIGINT}
+    </update>
+
+</mapper>

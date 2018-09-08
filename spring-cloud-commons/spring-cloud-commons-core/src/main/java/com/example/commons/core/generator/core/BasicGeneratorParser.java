@@ -1,10 +1,10 @@
 package com.example.commons.core.generator.core;
 
 import com.example.commons.core.base.BasicModel;
-import com.example.commons.core.generator.bean.Model;
-import com.example.commons.core.generator.bean.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
 import com.example.commons.core.generator.bean.Column;
+import com.example.commons.core.generator.bean.Model;
+import com.example.commons.core.generator.bean.Table;
 import com.example.commons.core.generator.support.JdbcType;
 
 import java.io.Serializable;
@@ -109,6 +109,7 @@ public class BasicGeneratorParser implements GeneratorParser {
 	private List<Column> parseColumns(Field[] fields) {
 		return Arrays.stream(fields).map(field -> {
 			TableColumn tableColumn = field.getAnnotation(TableColumn.class);
+
 			Column column = new Column();
 			column.setPrimaryKey(tableColumn.primaryKey());
 			column.setAutoIncrement(tableColumn.autoIncrease());
@@ -123,6 +124,15 @@ public class BasicGeneratorParser implements GeneratorParser {
 			column.setComment(tableColumn.comment());
 			column.setDecimalPoint(tableColumn.decimalPoint());
 			column.setFieldName(field.getName());
+
+			if (field.getType().isEnum()) {
+				try {
+					column.setEnumValues(field.getType().getEnumConstants());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
 			return column;
 		}).collect(Collectors.toList());
 	}
@@ -145,7 +155,7 @@ public class BasicGeneratorParser implements GeneratorParser {
 			jdbcType = JdbcType.TIMESTAMP;
 		} else if (Float.class == filedType || Double.class == filedType || BigDecimal.class == filedType) {
 			jdbcType = JdbcType.DECIMAL;
-		} else if (Enum.class == filedType) {
+		} else if (filedType.isEnum()) {
 			jdbcType = JdbcType.ENUM;
 		}
 		return jdbcType;

@@ -10,12 +10,12 @@ import com.example.commons.core.generator.core.MySqlDbInfo;
 public class Test {
 
     public static void main(String[] args) {
-        MySqlDbInfo mySqlDbInfo = new MySqlDbInfo("localhost", 3306, "root", "Hongzh0504!@#", "com.mysql.jdbc.Driver", "test");
+        MySqlDbInfo mySqlDbInfo = new MySqlDbInfo("localhost", 3306, "spring-cloud", "springCloud@2018", "com.mysql.jdbc.Driver", "spring-cloud-user");
 
-        GeneratorConfig generatorConfig = new GeneratorConfig("E:\\generator\\", "E:\\generator\\", "com.example.dao", "hzh");
+        GeneratorConfig generatorConfig = new GeneratorConfig("/Users/hzh/workspace/generater/", "/Users/hzh/workspace/generater/", "com.example.dao", "hzh");
         generatorConfig.setGeneratorTable(true);
         generatorConfig.setGeneratorMapperXml(true);
         generatorConfig.setGeneratorMapper(true);
-        new CodeGenerator().generateCode(TestDemo.class, generatorConfig, mySqlDbInfo);
+        new CodeGenerator(generatorConfig, mySqlDbInfo).generateCode(TestDemo.class);
     }
 }

@@ -22,4 +22,5 @@ public class Column {
 	private Object defaultVale;
 	private Boolean indexKey;
 	private Boolean uniqueKey;
+	private Object[] enumValues;
 }

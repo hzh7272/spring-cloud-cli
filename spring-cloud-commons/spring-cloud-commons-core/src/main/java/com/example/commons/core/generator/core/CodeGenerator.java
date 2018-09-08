@@ -20,7 +20,15 @@ public class CodeGenerator {
 	private BasicMySqlDdlGenerator basicMySqlDdlGenerator;
 	private BasicMyBatisGenerator basicMyBatisGenerator;
 
-	public void generateCode(Class<?> pojoClass, GeneratorConfig generatorConfig, MySqlDbInfo mySqlDbInfo) {
+	private GeneratorConfig generatorConfig;
+	private MySqlDbInfo mySqlDbInfo;
+
+	public CodeGenerator(GeneratorConfig generatorConfig, MySqlDbInfo mySqlDbInfo) {
+		this.generatorConfig = generatorConfig;
+		this.mySqlDbInfo = mySqlDbInfo;
+	}
+
+	public void generateCode(Class<?> pojoClass) {
 		GeneratorInfo generatorInfo = new BasicGeneratorParser().init(pojoClass).parse();
 		generatorInfo.setAuthor(generatorConfig.getAuthor());
 		generatorInfo.setTime(Instant.now().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
