@@ -3,12 +3,14 @@ package com.example.producer.user.model;
 import com.example.commons.core.base.BasicModel;
 import com.example.commons.core.generator.annotation.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 系统角色数据模型
  * @author hzh 2018/9/7 15:41
  */
+@Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "role", comment = "系统角色表")
 public class Role extends BasicModel {

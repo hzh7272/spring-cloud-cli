@@ -1,0 +1,12 @@
+server:
+  port: 7101
+
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: user-producer
+
+eureka:
+  instance:
+    appname: user-producer

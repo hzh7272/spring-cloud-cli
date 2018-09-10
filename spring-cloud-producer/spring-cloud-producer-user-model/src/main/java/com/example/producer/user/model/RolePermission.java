@@ -3,12 +3,14 @@ package com.example.producer.user.model;
 import com.example.commons.core.base.BasicModel;
 import com.example.commons.core.generator.annotation.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 角色权限关联数据模型
  * @author hzh 2018/9/8 下午11:28
  */
+@Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "role_permission", comment = "角色权限关联表")
 public class RolePermission extends BasicModel {

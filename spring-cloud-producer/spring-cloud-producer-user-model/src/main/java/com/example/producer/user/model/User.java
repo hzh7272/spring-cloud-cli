@@ -3,12 +3,14 @@ package com.example.producer.user.model;
 import com.example.commons.core.base.BasicModel;
 import com.example.commons.core.generator.annotation.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 系统用户数据模型
  * @author hzh 2018/9/6 17:27
  */
+@Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "user", comment = "系统用户表")
 public class User extends BasicModel {

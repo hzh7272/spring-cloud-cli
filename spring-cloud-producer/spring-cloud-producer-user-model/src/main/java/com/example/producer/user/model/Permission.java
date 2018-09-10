@@ -4,12 +4,14 @@ import com.example.commons.core.base.BasicModel;
 import com.example.commons.core.generator.annotation.Table;
 import com.example.commons.core.generator.annotation.TableColumn;
 import com.example.producer.user.constant.PermissionType;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 系统权限数据模型
  * @author hzh 2018/9/7 17:22
  */
+@Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "permission", comment = "系统权限表")
 public class Permission extends BasicModel {
