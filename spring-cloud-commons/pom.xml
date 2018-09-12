@@ -27,15 +27,15 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.7.0</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <fork>true</fork>
-                        <compilerArgs>
-                            <arg>-bootclasspath</arg>
-                            <arg>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</arg>
-                        </compilerArgs>
+                        <release>10</release>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.ow2.asm</groupId>
+                            <artifactId>asm</artifactId>
+                            <version>6.1</version> <!-- Use newer version of ASM -->
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>

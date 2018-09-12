@@ -21,8 +21,8 @@ public class UserCodeGenerator {
 
 		GeneratorConfig generatorConfig = new GeneratorConfig(xmlPath, mapperPath, packageName, "hzh");
 		generatorConfig.setGeneratorTable(true);
-		generatorConfig.setGeneratorMapperXml(true);
-		generatorConfig.setGeneratorMapper(true);
+//		generatorConfig.setGeneratorMapperXml(true);
+//		generatorConfig.setGeneratorMapper(true);
 
 		CodeGenerator codeGenerator = new CodeGenerator(generatorConfig, mySqlDbInfo);
 

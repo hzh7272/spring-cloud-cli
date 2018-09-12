@@ -17,4 +17,5 @@ public class UserProducerApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserProducerApplication.class, args);
     }
+
 }

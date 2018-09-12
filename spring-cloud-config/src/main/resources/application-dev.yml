@@ -7,8 +7,7 @@ spring:
    config:
      server:
       git:
-        uri: https://gitee.com/hzh7272/spring-cloud-config/
-        search-paths: dev
+        uri: https://gitee.com/hongzh/spring-cloud-config/
 
 eureka:
   client:
