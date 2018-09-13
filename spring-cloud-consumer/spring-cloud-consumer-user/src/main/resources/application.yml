@@ -1,0 +1,12 @@
+server:
+  port: 7201
+
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: user-consumer
+
+eureka:
+  instance:
+    appname: user-consumer

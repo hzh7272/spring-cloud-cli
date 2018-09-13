@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>spring-cloud-user-producer</artifactId>
+    <name>spring-cloud-user-producer</name>
+    <packaging>pom</packaging>
+    <description>spring cloud 服务提供者</description>
+
+    <parent>
+        <artifactId>spring-cloud</artifactId>
+        <groupId>com.example</groupId>
+        <version>1.0.0</version>
+        <relativePath/>
+    </parent>
+
+    <modules>
+        <module>spring-cloud-user-producer-service</module>
+        <module>spring-cloud-user-producer-model</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>spring-cloud-commons-tools</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <!-- 打包命令 mvn clean package -P test -U -Dmaven.test.skip=true -->
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profileActive>test</profileActive>
+            </properties>
+        </profile>
+        <!-- 预发布环境 -->
+        <profile>
+            <id>pre</id>
+            <properties>
+                <profileActive>pre</profileActive>
+            </properties>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <finalName>spring-cloud-user-producer</finalName>
+    </build>
+</project>

@@ -2,28 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-cloud-producer</artifactId>
-    <name>spring-cloud-producer</name>
-    <packaging>pom</packaging>
-    <description>spring cloud 服务提供者</description>
+    <artifactId>spring-cloud-user-producer-service</artifactId>
+    <name>spring-cloud-user-producer-service</name>
+    <packaging>jar</packaging>
+    <description>用户服务提供者</description>
 
     <parent>
-        <artifactId>spring-cloud</artifactId>
+        <artifactId>spring-cloud-user-producer</artifactId>
         <groupId>com.example</groupId>
         <version>1.0.0</version>
-        <relativePath/>
     </parent>
-
-    <modules>
-        <module>spring-cloud-producer-user</module>
-        <module>spring-cloud-producer-user-model</module>
-    </modules>
 
     <dependencies>
         <!-- eureka 客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -58,53 +57,12 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>spring-cloud-commons-tools</artifactId>
+            <artifactId>spring-cloud-user-producer-model</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
 
-    <profiles>
-        <!-- 打包命令 mvn clean package -P test -U -Dmaven.test.skip=true -->
-        <!-- 开发环境 -->
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <profileActive>dev</profileActive>
-            </properties>
-        </profile>
-        <!-- 测试环境 -->
-        <profile>
-            <id>test</id>
-            <properties>
-                <profileActive>test</profileActive>
-            </properties>
-        </profile>
-        <!-- 预发布环境 -->
-        <profile>
-            <id>pre</id>
-            <properties>
-                <profileActive>pre</profileActive>
-            </properties>
-        </profile>
-        <!-- 生产环境 -->
-        <profile>
-            <id>prod</id>
-            <properties>
-                <profileActive>prod</profileActive>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-        <finalName>spring-cloud-producer</finalName>
+        <finalName>spring-cloud-user-producer-service</finalName>
     </build>
 </project>

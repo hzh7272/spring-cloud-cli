@@ -79,7 +79,7 @@ public class BasicGeneratorParser implements GeneratorParser {
 	 */
 	private Model parsePojo() {
 		Model model = new Model();
-		model.setPackageName(this.clazz.getPackageName());
+		model.setPackageName(this.clazz.getPackage().getName());
 		model.setClassName(this.clazz.getSimpleName());
 		model.setClassFullName(this.clazz.getName());
 		return model;

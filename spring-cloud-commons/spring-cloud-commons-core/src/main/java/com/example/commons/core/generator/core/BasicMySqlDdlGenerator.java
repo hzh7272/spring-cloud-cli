@@ -84,7 +84,7 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 			char leftChar = '(';
 
 			while (showTableColumnsRs.next()) {
-				var tableColumn = new TableColumn();
+				TableColumn tableColumn = new TableColumn();
 				tableColumn.setField(showTableColumnsRs.getString("Field"));
 
 				String type = showTableColumnsRs.getString("Type");
@@ -126,7 +126,7 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 	 */
 	@Override
 	protected String generatorDdlSql(GeneratorInfo generatorInfo) {
-		var ddlSql = new StringBuilder();
+		StringBuilder ddlSql = new StringBuilder();
 		this.createTableSql(generatorInfo, ddlSql);
 		return ddlSql.toString();
 	}
@@ -256,7 +256,7 @@ public class BasicMySqlDdlGenerator extends AbstractMySqlDdlGenerator {
 		// 需要删除的字段
 		List<TableColumn> deleteColumnList = tableColumnList.stream().filter(isNotInGeneratorColumn).collect(Collectors.toList());
 
-		var alterSql = new StringBuilder();
+		StringBuilder alterSql = new StringBuilder();
 
 		// 删除字段语句
 		if (!deleteColumnList.isEmpty()) {
