@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-cloud-user-producer-model</artifactId>
-    <name>spring-cloud-user-producer-model</name>
+    <artifactId>spring-cloud-user-producer-feign</artifactId>
+    <name>spring-cloud-user-producer-feign</name>
     <packaging>jar</packaging>
-    <description>用户服务数据模型</description>
+    <description>用户服务Feign</description>
 
     <parent>
         <artifactId>spring-cloud-user-producer</artifactId>
@@ -15,8 +16,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.example</groupId>
-            <artifactId>spring-cloud-commons-core</artifactId>
+            <artifactId>spring-cloud-user-producer-model</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
@@ -36,6 +47,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <finalName>spring-cloud-user-producer-model</finalName>
+        <finalName>spring-cloud-user-producer-feign</finalName>
     </build>
 </project>

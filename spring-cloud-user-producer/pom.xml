@@ -15,8 +15,9 @@
     </parent>
 
     <modules>
-        <module>spring-cloud-user-producer-service</module>
         <module>spring-cloud-user-producer-model</module>
+        <module>spring-cloud-user-producer-service</module>
+        <module>spring-cloud-user-producer-feign</module>
     </modules>
 
     <dependencies>
@@ -63,12 +64,6 @@
     </profiles>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
         <finalName>spring-cloud-user-producer</finalName>
     </build>
 </project>

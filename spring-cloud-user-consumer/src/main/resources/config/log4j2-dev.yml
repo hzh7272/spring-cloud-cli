@@ -14,9 +14,9 @@ Configuration:
       - name: logger.pattern
         value: "%d %p %C{10} [%t] %m%n"
       - name: logger.file.path
-        value: ../log/spring-cloud-consumer-user/
+        value: ../log/spring-cloud-user-consumer/
       - name: logger.file.name
-        value: spring-cloud-consumer-user
+        value: spring-cloud-user-consumer
 
 
   Appenders:

@@ -7,6 +7,16 @@ spring:
   application:
     name: user-consumer
 
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    hystrix-command-key:
+      circuit-breaker:
+        sleep-window-in-milliseconds: 3000
+
 eureka:
   instance:
     appname: user-consumer
