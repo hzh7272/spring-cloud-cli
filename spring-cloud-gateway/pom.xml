@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-cloud-user-consumer</artifactId>
-    <name>spring-cloud-user-consumer</name>
-    <packaging>jar</packaging>
-    <description>用户服务消费者</description>
+    <artifactId>spring-cloud-gateway</artifactId>
+    <name>spring-cloud-gateway</name>
+    <packaging>pom</packaging>
+    <description>服务网关</description>
 
     <parent>
         <artifactId>spring-cloud</artifactId>
@@ -13,6 +14,10 @@
         <version>1.0.0</version>
         <relativePath/>
     </parent>
+
+    <modules>
+        <module>spring-cloud-gateway-web-api</module>
+    </modules>
 
     <dependencies>
         <!-- eureka 客户端 -->
@@ -39,9 +44,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>spring-cloud-user-producer-feign</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
     </dependencies>
 
@@ -87,6 +91,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <finalName>spring-cloud-user-consumer</finalName>
+        <finalName>spring-cloud-gateway</finalName>
     </build>
 </project>

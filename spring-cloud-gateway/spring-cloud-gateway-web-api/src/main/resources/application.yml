@@ -1,0 +1,29 @@
+server:
+  port: 1100
+
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: gateway-web-api
+
+eureka:
+  instance:
+    appname: gateway-web-api
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+zuul:
+  host:
+    connect-timeout-millis: 3000
+    socket-timeout-millis: 3000
