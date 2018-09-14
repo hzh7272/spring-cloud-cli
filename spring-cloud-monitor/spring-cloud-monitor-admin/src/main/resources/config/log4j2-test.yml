@@ -14,7 +14,7 @@ Configuration:
       - name: logger.pattern
         value: "%d %p %C{10} [%t] %m%n"
       - name: logger.file.path
-        value: ../spring-cloud-monitor-admin/
+        value: /mnt/data/logs/spring-cloud-monitor-admin/
       - name: logger.file.name
         value: spring-cloud-monitor-admin
 
