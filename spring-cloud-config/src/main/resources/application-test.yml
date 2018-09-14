@@ -1,0 +1,18 @@
+########################################################################
+####           spring-cloud-config配置服务中心 - 开发环境配置          ####
+########################################################################
+
+spring:
+  cloud:
+   config:
+     server:
+      git:
+        uri: https://gitee.com/hongzh/spring-cloud-config/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.0.1.104:7001/eureka/, http://10.0.1.105:7001/eureka/
+
+logging:
+  config: classpath:config/log4j2-dev.yml

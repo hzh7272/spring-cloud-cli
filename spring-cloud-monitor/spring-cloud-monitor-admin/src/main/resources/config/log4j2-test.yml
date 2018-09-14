@@ -1,0 +1,91 @@
+# 共有8个级别，按照从低到高为：ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+
+Configuration:
+  # 配置的名称
+  name: "注册中心日志"
+  # 这个用于设置log4j2自身内部的信息输出,可以不设置,当设置成trace时,会看到log4j2内部各种详细输出
+  status: warn
+  # Log4j能够自动检测修改配置文件和重新配置本身, 设置间隔秒数。此处表示每隔600秒重读一次配置文件
+  monitorInterval: 600
+
+  # 定义全局变量
+  Properties:
+    Property:
+      - name: logger.pattern
+        value: "%d %p %C{10} [%t] %m%n"
+      - name: logger.file.path
+        value: ../spring-cloud-monitor-admin/
+      - name: logger.file.name
+        value: spring-cloud-monitor-admin
+
+
+  Appenders:
+    # 输出到控制台
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${logger.pattern}
+    # 输出到日志文件
+    RollingFile:
+      - name: ROLLING_FILE
+        fileName: ${logger.file.path}/${logger.file.name}.log
+        filePattern: "${logger.file.path}/${date:yyyy-MM}/${logger.file.name}-%d{yyyy-MM-dd_HH}-%i.log.gz"
+        PatternLayout:
+          pattern: ${logger.pattern}
+        # 过滤器，先去除不接受的日志级别，然后获取需要接受的日志级别，这里接受INFO和WARN级别
+        Filters:
+          ThresholdFilter:
+            - level: ERROR
+              onMatch: DENY
+              # 无法做出决定，交给下个一个阈值过滤器进一步过滤。
+              onMismatch: NEUTRAL
+            - level: INFO
+              onMatch: ACCEPT
+              onMismatch: DENY
+        # 日志文件保存策略
+        Policies:
+          # 按文件大小分类保存
+          SizeBasedTriggeringPolicy:
+            size: 100M
+        DefaultRolloverStrategy:
+          max: 100
+      - name: ROLLING_ERROR_FILE
+        fileName: ${logger.file.path}/${logger.file.name}-error.log
+        filePattern: "${logger.file.path}/${date:yyyy-MM}/${logger.file.name}-error-%d{yyyy-MM-dd_HH}-%i.log.gz"
+        PatternLayout:
+          pattern: ${logger.pattern}
+        # 过滤器，先去除不接受的日志级别，然后获取需要接受的日志级别，这里接受INFO和WARN级别
+        Filters:
+          ThresholdFilter:
+            - level: ERROR
+              onMatch: ACCEPT
+              onMismatch: DENY
+        # 日志文件保存策略
+        Policies:
+          # 按文件大小分类保存
+          SizeBasedTriggeringPolicy:
+            size: 100M
+        DefaultRolloverStrategy:
+          max: 100
+
+  Loggers:
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+        - ref: ROLLING_ERROR_FILE
+    Logger:
+      - name: org.springframework
+        level: INFO
+        additivity: false
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: ROLLING_ERROR_FILE
+      - name: com.netflix
+        level: WARN
+        additivity: false
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: ROLLING_ERROR_FILE
