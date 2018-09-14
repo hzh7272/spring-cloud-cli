@@ -17,7 +17,6 @@ eureka:
       defaultZone: http://${server.host}:${server.port}/eureka/
   server:
     eviction-interval-timer-in-ms: 5000
-    enable-self-preservation: false
 
 management:
   endpoints:
