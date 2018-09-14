@@ -10,6 +10,8 @@ spring:
 eureka:
   instance:
     appname: gateway-web-api
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 hystrix:
   command:
@@ -27,3 +29,12 @@ zuul:
   host:
     connect-timeout-millis: 3000
     socket-timeout-millis: 3000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -8,16 +8,24 @@ spring:
 eureka:
   instance:
     appname: eureka-server
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
-    register-with-eureka: false
+    register-with-eureka: true
     fetch-registry: false
     service-url:
       defaultZone: http://127.0.0.1:${server.port}/eureka/
-  # 是否开启自我保护模式，默认为true
   server:
-    enable-self-preservation: true
-    # 扫描失效服务的间隔时间（默认为60*1000ms）
     eviction-interval-timer-in-ms: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 logging:
   config: classpath:log4j2.yml

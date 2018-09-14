@@ -39,6 +39,12 @@
         </dependency>
 
         <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring.boot.admin.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.example</groupId>
             <artifactId>spring-cloud-user-producer-feign</artifactId>
             <version>1.0.0</version>

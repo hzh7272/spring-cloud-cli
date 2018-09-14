@@ -18,5 +18,16 @@ hystrix:
         sleep-window-in-milliseconds: 3000
 
 eureka:
-  instance:
+  instance:http://14.0.174
     appname: user-consumer
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

@@ -1,23 +1,24 @@
 server:
-  port: 7102
+  port: 6100
 
 spring:
   profiles:
     active: @profileActive@
   application:
-    name: user-producer
+    name: monitor-admin
 
 eureka:
   instance:
-    appname: user-producer
+    appname: monitor-admin
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
 
 management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: "*"
   endpoint:
     health:
       show-details: ALWAYS

@@ -2,16 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-cloud-user-producer-service</artifactId>
-    <name>spring-cloud-user-producer-service</name>
-    <packaging>jar</packaging>
-    <description>用户服务提供者</description>
+    <artifactId>spring-cloud-monitor</artifactId>
+    <name>spring-cloud-monitor</name>
+    <packaging>pom</packaging>
+    <description>服务监控</description>
 
     <parent>
-        <artifactId>spring-cloud-user-producer</artifactId>
+        <artifactId>spring-cloud</artifactId>
         <groupId>com.example</groupId>
         <version>1.0.0</version>
+        <relativePath/>
     </parent>
+
+    <modules>
+        <module>spring-cloud-monitor-admin</module>
+    </modules>
 
     <dependencies>
         <!-- eureka 客户端 -->
@@ -36,37 +41,42 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>${jasypt.spring.boot.starter.version}</version>
         </dependency>
-
-        <!-- mybatis -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.spring.boot.starter.version}</version>
-        </dependency>
-
-        <!-- 数据库 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>${spring.boot.admin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>spring-cloud-user-producer-model</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
+
+    <profiles>
+        <!-- 打包命令 mvn clean package -P test -U -Dmaven.test.skip=true -->
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profileActive>test</profileActive>
+            </properties>
+        </profile>
+        <!-- 预发布环境 -->
+        <profile>
+            <id>pre</id>
+            <properties>
+                <profileActive>pre</profileActive>
+            </properties>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -75,6 +85,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <finalName>spring-cloud-user-producer-service</finalName>
+        <finalName>spring-cloud-monitor</finalName>
     </build>
 </project>
